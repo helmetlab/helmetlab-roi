@@ -21,6 +21,7 @@ st.sidebar.header("Παράμετροι")
 price = st.sidebar.number_input("Τιμή ανά κύκλο (€)", value=8.0, step=0.5)
 daily_runs = st.sidebar.number_input("Κύκλοι την ημέρα (Μ.Ο.)", value=12, step=1)
 active_days = st.sidebar.slider("Ημέρες λειτουργίας/μήνα", 1, 30, 30)
+venue_share = st.sidebar.slider("Μερίδιο Χώρου (%)", 0, 50, 15)
 
 cost_per_liter = st.sidebar.number_input("Κόστος ανά λίτρο (€)", value=23.0, step=1.0)
 cleans_per_4l = 500
