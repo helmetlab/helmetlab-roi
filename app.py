@@ -1,41 +1,50 @@
 import streamlit as st
 
-# Ρύθμιση τίτλου και εμφάνισης
+# Ρύθμιση σελίδας
 st.set_page_config(page_title="Helmet Hygiene ROI (€)", layout="centered")
-st.title("⛑️ Υπολογιστής ROI - Helmet Hygiene")
+st.title("⛑️ Helmet Hygiene ROI Calculator")
 
 # --- ΔΕΔΟΜΕΝΑ ΕΙΣΟΔΟΥ ---
-st.header("1. Ρυθμίσεις Δεδομένων")
+st.sidebar.header("1. Ρυθμίσεις Εσόδων")
+price = st.sidebar.number_input("Τιμή ανά κύκλο (€)", value=8.0, step=0.5)
+daily_runs = st.sidebar.number_input("Κύκλοι την ημέρα (Μ.Ο.)", value=12, step=1)
+active_days = st.sidebar.slider("Ημέρες λειτουργίας/μήνα", 1, 30, 30)
+venue_share = st.sidebar.slider("Μερίδιο Χώρου (%)", 0, 50, 15)
 
-col1, col2 = st.columns(2)
-with col1:
-    price = st.number_input("Τιμή ανά κύκλο (€)", value=8.0, step=0.5)
-    daily_runs = st.number_input("Κύκλοι την ημέρα (Μ.Ο.)", value=12, step=1)
-with col2:
-    venue_share = st.slider("Μερίδιο Χώρου (%)", 0, 50, 15)
-    active_days = st.slider("Ημέρες λειτουργίας/μήνα", 1, 30, 30)
+st.sidebar.header("2. Κόστος Υγρών (Consumables)")
+cost_per_liter = st.sidebar.number_input("Κόστος ανά λίτρο (€)", value=23.0, step=1.0)
+cleans_per_4l = 500 # Σταθερά βάσει των στοιχείων σου
 
 # --- ΥΠΟΛΟΓΙΣΜΟΙ ---
-# Κόστος αναλώσιμων ανά κύκλο (περίπου 0.46€)
-cost_per_cycle = 0.46
+# Υπολογισμός κόστους ανά καθαρισμό: (4 λίτρα * τιμή_λίτρου) / 500 καθαρισμούς
+liquid_cost_per_clean = (4 * cost_per_liter) / cleans_per_4l
 
 gross_monthly = price * daily_runs * active_days
 venue_cut = gross_monthly * (venue_share / 100)
-total_costs = daily_runs * active_days * cost_per_cycle
-net_monthly = gross_monthly - venue_cut - total_costs
+total_liquid_cost = (daily_runs * active_days) * liquid_cost_per_clean
+net_monthly = gross_monthly - venue_cut - total_liquid_cost
 annual_profit = net_monthly * 12
 
-# --- ΑΠΟΤΕΛΕΣΜΑΤΑ ---
-st.divider()
-st.header("2. Αποτελέσματα")
+# --- ΕΜΦΑΝΙΣΗ ΑΠΟΤΕΛΕΣΜΑΤΩΝ ---
+st.header("Οικονομική Ανάλυση (€)")
 
-c1, c2, c3 = st.columns(3)
-c1.metric("Μηνιαίος Τζίρος", f"{gross_monthly:,.0f}€")
-c2.metric("Καθαρό Κέρδος", f"{net_monthly:,.0f}€")
-c3.metric("Ετήσιο Κέρδος", f"{annual_profit:,.0f}€")
+col1, col2, col3 = st.columns(3)
+col1.metric("Μηνιαίος Τζίρος", f"{gross_monthly:,.0f}€")
+col2.metric("Καθαρό Κέρδος", f"{net_monthly:,.0f}€")
+col3.metric("Ετήσιο Κέρδος", f"{annual_profit:,.0f}€")
+
+st.info(f"Το κόστος υγρού ανά καθαρισμό είναι: {liquid_cost_per_clean:.3f}€")
 
 # Πίνακας Ανάλυσης
+st.subheader("Ανάλυση Εξόδων & Εσόδων")
 st.table({
-    "Περιγραφή": ["Ακαθάριστα Έσοδα", "Μερίδιο Χώρου", "Έξοδα (Αναλώσιμα)", "Τελικό Καθαρό"],
-    "Ποσό (€)": [f"{gross_monthly:.2f}€", f"-{venue_cut:.2f}€", f"-{total_costs:.2f}€", f"{net_monthly:.2f}€"]
+    "Περιγραφή": ["Ακαθάριστα Έσοδα (Monthly Gross)", "Μερίδιο Χώρου (Venue Share)", "Κόστος Υγρών (Consumables)", "Τελικό Καθαρό (Net Profit)"],
+    "Ποσό (€)": [
+        f"{gross_monthly:.2f}€", 
+        f"-{venue_cut:.2f}€", 
+        f"-{total_liquid_cost:.2f}€", 
+        f"{net_monthly:.2f}€"
+    ]
 })
+
+st.caption("Σημείωση: Ο υπολογισμός υγρών βασίζεται σε απόδοση 500 καθαρισμών ανά 4 λίτρα.")
