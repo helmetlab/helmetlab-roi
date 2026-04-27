@@ -2,19 +2,19 @@ import streamlit as st
 from PIL import Image # Χρειάζεται για την επεξεργασία της εικόνας
 
 # 1. ΑΛΛΑΓΗ ΤΙΤΛΟΥ ΣΤΟ TAB ΤΟΥ BROWSER
-st.set_page_config(page_title="Το Όνομα Της Εταιρείας Σου", page_icon="⛑️")
+st.set_page_config(page_title="HelmetLab", page_icon="⛑️")
 
 # 2. ΠΡΟΣΘΗΚΗ LOGO
 # Ανέβασε το αρχείο logo.png στο GitHub σου για να δουλέψει αυτό
 try:
-    image = Image.open('logo.png')
+    image = Image.open('FULL LOGO ICON AND TEXT-04.png')
     st.image(image, width=200) # Μπορείς να αλλάξεις το 200 για να μεγαλώσει/μικρύνει
 except:
     st.warning("Ανέβασε ένα αρχείο με όνομα logo.png στο GitHub για να δεις το λογότυπό σου!")
 
 # 3. ΚΥΡΙΟΣ ΤΙΤΛΟΣ ΕΦΑΡΜΟΓΗΣ
 st.title("Custom ROI Calculator") # Γράψε εδώ όποιον τίτλο θέλεις
-st.write("---")
+st.write("HelmetLab")
 
 # --- ΤΟ ΥΠΟΛΟΙΠΟ ΤΗΣ ΕΦΑΡΜΟΓΗΣ (ΟΠΩΣ ΠΡΙΝ) ---
 st.sidebar.header("Παράμετροι")
