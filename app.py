@@ -14,7 +14,7 @@ except:
 
 # 3. ΚΥΡΙΟΣ ΤΙΤΛΟΣ ΕΦΑΡΜΟΓΗΣ
 st.title("Custom ROI Calculator from HelmetLab") # Γράψε εδώ όποιον τίτλο θέλεις
-st.write("HelmetLab")
+st.write("by Invergo")
 
 # --- ΤΟ ΥΠΟΛΟΙΠΟ ΤΗΣ ΕΦΑΡΜΟΓΗΣ (ΟΠΩΣ ΠΡΙΝ) ---
 st.sidebar.header("Παράμετροι")
