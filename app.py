@@ -13,7 +13,7 @@ except:
     st.warning("Ανέβασε ένα αρχείο με όνομα logo.png στο GitHub για να δεις το λογότυπό σου!")
 
 # 3. ΚΥΡΙΟΣ ΤΙΤΛΟΣ ΕΦΑΡΜΟΓΗΣ
-st.title("Custom ROI Calculator") # Γράψε εδώ όποιον τίτλο θέλεις
+st.title("Custom ROI Calculator from HelmetLab") # Γράψε εδώ όποιον τίτλο θέλεις
 st.write("HelmetLab")
 
 # --- ΤΟ ΥΠΟΛΟΙΠΟ ΤΗΣ ΕΦΑΡΜΟΓΗΣ (ΟΠΩΣ ΠΡΙΝ) ---
